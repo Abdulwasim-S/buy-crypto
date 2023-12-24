@@ -33,8 +33,10 @@ const cryptoslice = createSlice({
       if (state.buy_bit_value <= 0) {
         return;
       }
-      state.eth = state.eth + 1;
-      state.buy_bit_value = 0;
+      if (state.buy_bit_value >= state.current_crypto_price) {
+        state.eth = state.eth + 1;
+        state.buy_bit_value = 0;
+      }
     },
     setSellBit(state, action) {
       state.sell_bit_value = action.payload;
@@ -44,7 +46,10 @@ const cryptoslice = createSlice({
       if (state.sell_bit_value <= 0) {
         return;
       }
-      state.sell_bit_value = 0;
+      if (state.sell_bit_value <= state.current_crypto_price) {
+        state.wallet = state.wallet + state.current_crypto_price;
+        state.sell_bit_value = 0;
+      }
     },
     setWeeklyGraphData(state, action) {
       const data = action.payload.map((ele, idx) => {

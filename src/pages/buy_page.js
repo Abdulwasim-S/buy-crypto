@@ -62,10 +62,12 @@ const BuyPage = () => {
         <h5 className="text-center col-md-4  p-1">Wallet : $ {wallet}</h5>
         <h5 className="text-center col-md-4 p-1">Remaining ETH : {eth}</h5>
         {sell_bit_value > 0 && (
-          <h5 className="col-md-4">Sell : $ {sell_bit_value}</h5>
+          <h5 className="text-center col-md-6  p-1">
+            Sell : $ {sell_bit_value}
+          </h5>
         )}
         {buy_bit_value > 0 && (
-          <h5 className="col-md-4">Buy : $ {buy_bit_value}</h5>
+          <h5 className="text-center col-md-6  p-1">Buy : $ {buy_bit_value}</h5>
         )}
       </div>
       <div className="row">
