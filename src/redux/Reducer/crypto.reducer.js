@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const cryptoslice = createSlice({
   name: "crypto",
   initialState: {
-    status: true,
+    status: false,
     current_crypto_price: 0,
     buy_bit_value: 0,
     sell_bit_value: 0,
@@ -16,6 +16,7 @@ const cryptoslice = createSlice({
   reducers: {
     getCryptoData(state, action) {
       state.current_crypto_price = action.payload;
+      state.status = true;
     },
     setBuySellState(state) {
       state.wallet < state.current_crypto_price
@@ -48,10 +49,10 @@ const cryptoslice = createSlice({
     setWeeklyGraphData(state, action) {
       const data = action.payload.map((ele, idx) => {
         let temp = {
-          name: new Date(ele[0]).toLocaleDateString(),
-          coin_value: ele[1],
+          Time: new Date(ele[0]).toLocaleTimeString("en-in"),
+          Price: ele[1],
         };
-        if (idx % 20 === 0) return temp;
+        return temp;
       });
       state.weekly_graph_data = data;
     },

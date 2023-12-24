@@ -11,12 +11,11 @@ import axios from "axios";
 import ChartPage from "./pages/chart_page";
 import BuyPage from "./pages/buy_page";
 import HeaderPage from "./pages/header_page";
+import FooterPage from "./pages/footer_page";
 
 function App() {
   const dispatch = useDispatch();
-  const { current_crypto_price, buy_bit_value, sell_bit_value } = useSelector(
-    (state) => state.cryptoReducer
-  );
+  const { status } = useSelector((state) => state.cryptoReducer);
   const getDate = async () => {
     try {
       await axios
@@ -45,11 +44,13 @@ function App() {
     };
   }, []);
   return (
-    <div className="App">
+    <>
       <HeaderPage />
-      <BuyPage />
+      {status && <BuyPage />}
+      {!status && <h1 className="text-center">Loading...</h1>}
       <ChartPage />
-    </div>
+      <FooterPage />
+    </>
   );
 }
 

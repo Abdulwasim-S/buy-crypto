@@ -55,12 +55,12 @@ const BuyPage = () => {
 
   return (
     <div className="buy-container p-3 border border-1 border ">
-      <div className="row p-1">
-        <h4 className="col-md-4 text-success border border-3 border-black p-1">
+      <div className="row border border-3 border-black p-1 mb-3">
+        <h4 className="col-md-4 text-center text-success  p-1">
           Current Price : $ {current_crypto_price}
         </h4>
-        <h5 className="col-md-4">Wallet : $ {wallet}</h5>
-        <h5 className="col-md-4">ETH : {eth}</h5>
+        <h5 className="text-center col-md-4  p-1">Wallet : $ {wallet}</h5>
+        <h5 className="text-center col-md-4 p-1">Remaining ETH : {eth}</h5>
         {sell_bit_value > 0 && (
           <h5 className="col-md-4">Sell : $ {sell_bit_value}</h5>
         )}
@@ -78,40 +78,21 @@ const BuyPage = () => {
             onChange={(e) => setAmount(e.target.value)}
           />
         </div>
-        {!sell_bit_value > 0 ? (
-          <button
-            className="btn btn-warning col-3 border border-white border-5"
-            onClick={handleSell}
-            disabled={sell_bit_value === 0 && !sell}
-          >
-            Sell
-          </button>
-        ) : (
-          <button
-            className="btn btn-warning col-3 border border-white border-5"
-            onClick={handleSell}
-            disabled={true}
-          >
-            Sell
-          </button>
-        )}
-        {!buy_bit_value > 0 ? (
-          <button
-            className="btn btn-success col-3 border border-white border-5"
-            onClick={handleBuy}
-            disabled={buy_bit_value === 0 && !buy}
-          >
-            Buy
-          </button>
-        ) : (
-          <button
-            className="btn btn-success col-3 border border-white border-5"
-            onClick={handleBuy}
-            disabled={true}
-          >
-            Buy
-          </button>
-        )}
+        <button
+          className="btn btn-warning col-3 border border-white border-5"
+          onClick={handleSell}
+          disabled={sell_bit_value === 0 && !sell}
+        >
+          Sell
+        </button>
+
+        <button
+          className="btn btn-success col-3 border border-white border-5"
+          onClick={handleBuy}
+          disabled={buy_bit_value === 0 && !buy}
+        >
+          Buy
+        </button>
       </div>
     </div>
   );
