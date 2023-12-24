@@ -44,12 +44,10 @@ const BuyPage = () => {
     dispatch(setBuyBit(amount));
     setAmount(0);
   };
-  function checker() {
-    console.log("Current Buy value", buy_bit_value);
-
+  const checker = () => {
     dispatch(checkBuyBit());
     dispatch(checkSellBit());
-  }
+  };
   useEffect(() => {
     const checkerInterval = setInterval(checker, 3000);
     return () => clearInterval(checkerInterval);

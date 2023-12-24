@@ -45,6 +45,16 @@ const cryptoslice = createSlice({
       }
       state.sell_bit_value = 0;
     },
+    setWeeklyGraphData(state, action) {
+      const data = action.payload.map((ele, idx) => {
+        let temp = {
+          name: new Date(ele[0]).toLocaleDateString(),
+          coin_value: ele[1],
+        };
+        if (idx % 20 === 0) return temp;
+      });
+      state.weekly_graph_data = data;
+    },
   },
 });
 export const {
@@ -54,5 +64,6 @@ export const {
   setBuyBit,
   checkBuyBit,
   checkSellBit,
+  setWeeklyGraphData,
 } = cryptoslice.actions;
 export default cryptoslice.reducer;

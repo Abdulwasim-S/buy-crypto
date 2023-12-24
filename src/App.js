@@ -4,15 +4,13 @@ import {
   checkBuyBit,
   checkSellBit,
   getCryptoData,
-  setBuyBit,
   setBuySellState,
-  setSellBit,
 } from "./redux/Reducer/crypto.reducer";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import ChartPage from "./pages/chart_page";
 import BuyPage from "./pages/buy_page";
-import WalletPage from "./pages/wallet_page";
+import HeaderPage from "./pages/header_page";
 
 function App() {
   const dispatch = useDispatch();
@@ -20,14 +18,12 @@ function App() {
     (state) => state.cryptoReducer
   );
   const getDate = async () => {
-    console.log("hi");
     try {
       await axios
         .get(
           "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd"
         )
         .then((res) => {
-          console.log(res.data.ethereum.usd);
           dispatch(getCryptoData(+res.data.ethereum.usd));
           dispatch(setBuySellState());
           dispatch(checkBuyBit());
@@ -50,8 +46,9 @@ function App() {
   }, []);
   return (
     <div className="App">
-      <WalletPage />
+      <HeaderPage />
       <BuyPage />
+      <ChartPage />
     </div>
   );
 }
