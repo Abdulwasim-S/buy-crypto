@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import "./App.css";
 import {
+  checkBuyBit,
+  checkSellBit,
   getCryptoData,
   setBuyBit,
   setBuySellState,
@@ -28,6 +30,8 @@ function App() {
           console.log(res.data.ethereum.usd);
           dispatch(getCryptoData(+res.data.ethereum.usd));
           dispatch(setBuySellState());
+          dispatch(checkBuyBit());
+          dispatch(checkSellBit());
         })
         .catch((error) => console.log(error));
     } catch (error) {

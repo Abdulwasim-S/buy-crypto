@@ -28,47 +28,31 @@ const cryptoslice = createSlice({
       state.buy_bit_value = +action.payload;
       state.wallet = state.wallet - action.payload;
     },
-    setSellBit(state, action) {
-      if (action.payload === 0) {
-        state.wallet = state.wallet + state.current_crypto_price;
-        state.buy_bit_value = 0;
+    checkBuyBit(state) {
+      if (state.buy_bit_value <= 0) {
         return;
       }
-      state.buy_bit_value = action.payload;
-      state.eth = state.eth - 1;
-      setBuySellState();
+      state.eth = state.eth + 1;
+      state.buy_bit_value = 0;
     },
-    buyCoin(state, action) {
-      if (action.payload === "buy") {
-        if (state.current_crypto_price <= state.wallet) {
-          state.eth = state.eth + 1;
-          state.wallet = state.wallet - state.current_crypto_price;
-          state.sell = true;
-          state.wallet < state.current_crypto_price
-            ? (state.buy = false)
-            : (state.buy = true);
-        }
+    setSellBit(state, action) {
+      state.sell_bit_value = action.payload;
+      state.eth = state.eth - 1;
+    },
+    checkSellBit(state) {
+      if (state.sell_bit_value <= 0) {
+        return;
       }
-      if (action.payload === "sell") {
-        if (state.eth > 0) {
-          state.eth = state.eth - 1;
-          state.wallet = state.wallet + state.current_crypto_price;
-          if (state.eth <= 0) {
-            state.sell = false;
-          }
-          state.wallet < state.current_crypto_price
-            ? (state.buy = false)
-            : (state.buy = true);
-        }
-      }
+      state.sell_bit_value = 0;
     },
   },
 });
 export const {
   getCryptoData,
-  buyCoin,
   setBuySellState,
   setSellBit,
   setBuyBit,
+  checkBuyBit,
+  checkSellBit,
 } = cryptoslice.actions;
 export default cryptoslice.reducer;

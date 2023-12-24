@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   buyCoin,
+  checkBuyBit,
+  checkSellBit,
   setBuyBit,
   setSellBit,
 } from "../redux/Reducer/crypto.reducer";
@@ -39,22 +41,24 @@ const BuyPage = () => {
       alert("Amount should not be 0 or less");
       return;
     }
-    dispatch(setBuyBit(123));
+    dispatch(setBuyBit(amount));
+    setAmount(0);
   };
-  function calcelBuy() {
+  function checker() {
     console.log("Current Buy value", buy_bit_value);
-    // dispatch(setBuyBit(0));
+
+    dispatch(checkBuyBit());
+    dispatch(checkSellBit());
   }
   useEffect(() => {
-    console.log("Changed");
-    setInterval(calcelBuy, 3000);
-  }, [current_crypto_price]);
+    const checkerInterval = setInterval(checker, 3000);
+    return () => clearInterval(checkerInterval);
+  }, []);
 
   return (
-    <div className="buy-container p-3 border border-5 border-black">
+    <div className="buy-container p-3 border border-1 border ">
       <div className="row p-1">
-        {"Amount : " + amount}
-        <h4 className="col-md-4 text-danger border border-3 border-black p-1">
+        <h4 className="col-md-4 text-success border border-3 border-black p-1">
           Current Price : $ {current_crypto_price}
         </h4>
         <h5 className="col-md-4">Wallet : $ {wallet}</h5>
@@ -110,12 +114,6 @@ const BuyPage = () => {
             Buy
           </button>
         )}
-        <button
-          className="btn btn-success col-3 border border-white border-5"
-          onClick={calcelBuy}
-        >
-          Buy
-        </button>
       </div>
     </div>
   );
